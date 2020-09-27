@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#359BFD</color>
+    <color name="colorPrimaryDark">#359BFD</color>
+    <color name="colorAccent">#359BFD</color>
+    <color name="view_line">#E8E8E8</color>
+
+
+    <color name="base_page_bg">#F7F7F7</color>
+    <color name="edit_hint_color">#ff777777</color>
+    <color name="edit_description_text">#ff585858</color>
+
+    <color name="yellow">#DAD625</color>
+    <color name="orange">#FFAA53</color>
+    <color name="red">#EA605D</color>
+
+    <color name="stroke_color">#000000</color>
+
+</resources>

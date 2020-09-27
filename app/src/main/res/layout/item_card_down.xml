@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="@drawable/forget_input_bg_has_line"
+    android:orientation="vertical">
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_rv_title"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="告警展示"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textStyle="bold" />-->
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="#585858"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_date"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="#66666666" />
+
+    <LinearLayout
+        android:id="@+id/layout_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:layoutDirection="rtl"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/rail_line_stroke" />
+
+        <TextView
+            android:id="@+id/point_yellow"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/circle_shape_default" />
+
+        <View
+            android:id="@+id/line_yellow"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/line_shape_default" />
+
+        <TextView
+            android:id="@+id/point_orange"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/circle_shape_default" />
+
+        <View
+            android:id="@+id/line_orange"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/line_shape_default" />
+
+        <TextView
+            android:id="@+id/point_red"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/circle_shape_default" />
+
+        <View
+            android:id="@+id/line_red"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/line_shape_default" />
+
+        <TextView
+            android:id="@+id/tv_work_state"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/circle_shape_default" />
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="7dp"
+            android:background="@drawable/rail_line_stroke" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_dis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_line"
+        android:layout_marginLeft="20dp"
+        android:layoutDirection="rtl"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:id="@+id/tv_alarm3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="9公里" />
+
+        <TextView
+            android:id="@+id/tv_alarm2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="6公里" />
+
+
+        <TextView
+            android:id="@+id/tv_alarm1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="3公里" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="人" />
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="10dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/layout_line"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginBottom="5dp"
+            android:src="@mipmap/work" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/layout_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="8dp"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_train"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/train1" />
+        <!-- 0.3  0.85 1.4  1.95  2.5  3.05  3.6  4.15 -->
+        <!-- 三级总数4.7 -->
+
+        <!-- 2级总数4.7  0.5  1.25  2  2.7  3.4  4.15-->
+
+        <!-- 3级总数4.7  1  1.95  3  4.15-->
+
+        <View
+            android:id="@+id/viewWeight"
+            android:layout_width="0dp"
+            android:layout_height="1dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/layout_line"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/start_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:background="@drawable/station_right" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/layout_line"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/end_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:background="@drawable/station_left" />
+    </LinearLayout>
+
+</RelativeLayout>

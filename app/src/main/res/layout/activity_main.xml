@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar"
+        android:visibility="gone" />
+
+    <com.leidi.trainalarm.util.SelfViewPager
+        android:id="@+id/vp_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RadioGroup
+        android:id="@+id/rg_main_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingTop="6dp">
+
+        <RadioButton
+            android:id="@+id/rb_main_bottom1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/home_msg_icon_selector"
+            android:gravity="center"
+            android:text="@string/message"
+            android:textColor="@drawable/main_rb_selector"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_main_bottom2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:drawableTop="@drawable/home_notify_icon_selector"
+            android:gravity="center"
+            android:text="@string/notification"
+            android:textColor="@drawable/main_rb_selector"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_main_bottom3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:drawableTop="@drawable/home_self_icon_selector"
+            android:gravity="center"
+            android:text="@string/self"
+            android:textColor="@drawable/main_rb_selector"
+            android:textSize="12sp" />
+
+    </RadioGroup>
+
+</LinearLayout>

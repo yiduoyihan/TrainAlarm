@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_page_bg"
+    android:orientation="vertical"
+    tools:context=".ui.login.forget.ForgetPwdActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        style="@style/MyTextDescriptionEdit"
+        android:layout_marginTop="20dp"
+        android:text="@string/phone_number" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        style="@style/MyEditPublicType"
+        android:autofillHints="no"
+        android:hint="@string/please_input_phone_number"
+        android:inputType="phone"
+        android:maxLength="11" />
+
+
+    <TextView
+        style="@style/MyTextDescriptionEdit"
+        android:layout_marginTop="15dp"
+        android:text="@string/captcha_number" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_captcha"
+            style="@style/MyEditPublicType"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:autofillHints="no"
+            android:hint="@string/please_input_captcha"
+            android:inputType="number"
+            android:maxLength="6" />
+
+        <TextView
+            android:id="@+id/btn_get_captcha"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/forget_captcha_shape"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/get_captcha"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/MyTextDescriptionEdit"
+        android:layout_marginTop="15dp"
+        android:text="@string/new_password" />
+
+
+    <EditText
+        android:id="@+id/et_new_pwd"
+        style="@style/MyEditPublicType"
+        android:autofillHints="no"
+        android:hint="@string/please_input_password"
+        android:inputType="textPassword"
+        android:maxLength="18" />
+
+    <TextView
+        style="@style/MyTextDescriptionEdit"
+        android:layout_marginTop="15dp"
+        android:text="@string/ensure_password" />
+
+
+    <EditText
+        android:id="@+id/et_new_pwd_again"
+        style="@style/MyEditPublicType"
+        android:autofillHints="1234"
+        android:hint="@string/please_input_password_again"
+        android:inputType="textPassword"
+        android:maxLength="18" />
+
+
+    <TextView
+        android:id="@+id/btn_submit_new_pwd"
+        style="@style/MyEnsureButton"
+        android:layout_marginTop="100dp"
+        android:text="@string/ensure" />
+
+</LinearLayout>

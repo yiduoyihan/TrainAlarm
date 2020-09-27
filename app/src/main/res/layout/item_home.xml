@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="@drawable/forget_input_bg">
+
+    <ImageView
+        android:id="@+id/home_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/home_icon_bg"
+        android:padding="7dp"
+        android:src="@mipmap/msg_item_icon"
+        android:contentDescription="@string/description_notification_icon" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="#ff8a8a8a"
+        android:textSize="10sp"
+        tools:ignore="RelativeOverlap,SmallSp" />
+
+    <TextView
+        android:id="@+id/tv_title_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/home_icon"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/home_icon"
+        android:text="@string/normal_notice"
+        android:textColor="#ff585858"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tv_home_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/home_icon"
+        android:text="@string/notice_small_title"
+        android:textColor="#ff585858"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/tv_home_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_home_description"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="15dp"
+        android:layout_toEndOf="@id/home_icon"
+        android:maxLines="2"
+        android:text="@string/notice_detail"
+        android:textColor="#ff585858"
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
+
+    <ImageView
+        android:id="@+id/home_item_delete"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignBottom="@id/tv_home_detail"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:background="@mipmap/delete"
+        android:visibility="gone"
+        android:contentDescription="@string/delete_notice_icon" />
+
+</RelativeLayout>
