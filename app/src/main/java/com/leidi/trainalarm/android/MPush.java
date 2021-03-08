@@ -98,7 +98,7 @@ public final class MPush {
     /**
      * 是否已经初始化
      *
-     * @return
+     * @return context
      */
     public MPush checkInit(Context context) {
         if (ctx == null) {
@@ -132,9 +132,10 @@ public final class MPush {
      */
     public void setClientConfig(ClientConfig clientConfig) {
         if (clientConfig.getPublicKey() == null
-                || clientConfig.getAllotServer() == null
-                || clientConfig.getClientVersion() == null) {
-            throw new IllegalArgumentException("publicKey, allocServer can not be null");
+                || clientConfig.getClientVersion() == null
+                || (clientConfig.getAllotServer() == null && clientConfig.getServerHost() == null)
+        ) {
+            throw new IllegalArgumentException("publicKey, allocServer ，ServerHost can not be null");
         }
 
         SharedPreferences.Editor editor = sp.edit();
@@ -303,6 +304,7 @@ public final class MPush {
             clientConfig = ClientConfig.build()
                     .setPublicKey(publicKey)
                     .setAllotServer(allocServer)
+                    .setServerHost(allocServer)
                     .setDeviceId(deviceId)
                     .setOsName(Constants.DEF_OS_NAME)
                     .setOsVersion(Build.VERSION.RELEASE)
@@ -311,10 +313,14 @@ public final class MPush {
                     .setLogEnabled(logEnabled);
         }
         if (clientConfig.getClientVersion() == null
-                || clientConfig.getPublicKey() == null
-                || clientConfig.getAllotServer() == null) {
+                || clientConfig.getPublicKey() == null) {
             return null;
         }
+
+        if (clientConfig.getAllotServer() == null && clientConfig.getServerHost() == null){
+            return null;
+        }
+
 
         if (clientConfig.getSessionStorageDir() == null) {
             clientConfig.setSessionStorage(new SPSessionStorage(sp));
