@@ -52,11 +52,10 @@ public class AlarmDetailPresenter implements AlarmDetailView.Presenter {
                 }, throwable -> {
                     //不加runOnUiThread会报CalledFromWrongThreadException 异常处理
                 });
-
-
     }
 
     @Override
+
     public void deleteItem(int alarmInfoId, int position, Activity fragment) {
         RxHttp.postForm(Url.DELETE_NOTIFICATION_ITEM)
                 .add("alarmInfoIds", alarmInfoId)
