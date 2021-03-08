@@ -52,7 +52,7 @@ public class MyReceiver extends BroadcastReceiver {
             EventBean eventBean = new Gson().fromJson(message, EventBean.class);
             ReceiverBean bean = new Gson().fromJson(eventBean.getContent(), ReceiverBean.class);
             //告警和通知区分
-//            System.out.println("=====MyReceiver=====" + message);
+            System.out.println("=====MyReceiver=====" + message);
             //notice alarm
             switch (bean.getType()) {
                 case Constant.MSG_HOME_REFUSH:
