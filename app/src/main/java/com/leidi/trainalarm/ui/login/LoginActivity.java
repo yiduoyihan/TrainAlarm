@@ -209,13 +209,13 @@ public class LoginActivity extends BaseActivity {
                         SPUtils.getInstance().put(Constant.PASSWORD, password.getText().toString().trim());
                         SPUtils.getInstance().put(Constant.USER_ID, bean.getData().getUserInfo().getId());
                         SPUtils.getInstance().put(Constant.PUSH_URL, bean.getData().getMpushServerIp());
+//                        SPUtils.getInstance().put(Constant.PUSH_URL, "192.168.8.26:3000");
                         SPUtils.getInstance().put(Constant.USER_FLAG, bean.getData().getUserInfo().getRoleId());
                         SPUtils.getInstance().put(Constant.EMPLOYEE_NAME, "" + bean.getData().getUserInfo().getDeptName());
 
                         MPush.I.pausePush();
                         MPush.I.unbindAccount();
                         MPush.I.stopPush();
-
 
                         navigateToHome();
                     } else {
