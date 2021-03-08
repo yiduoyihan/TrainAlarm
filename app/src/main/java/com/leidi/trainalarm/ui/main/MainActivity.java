@@ -142,6 +142,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         ClientConfig cc = ClientConfig.build()
                 .setPublicKey(publicKey)
                 .setAllotServer(allocServer)
+//                .setServerHost(allocServer)
                 .setDeviceId(deviceID)
                 .setClientVersion(BuildConfig.VERSION_NAME)
                 .setLogger(new MyLog())
