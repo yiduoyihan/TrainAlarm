@@ -245,8 +245,6 @@ public class UserListActivity extends BaseActivity {
                 } else {
                     tvEndDate.setText(format.format(date));
                 }
-
-
             }
         }).setType(new boolean[]{true, true, true, true, true, false})// 默认全部显示
                 .setRangDate(startDate, endDate)//起始终止年月日设定
@@ -268,7 +266,6 @@ public class UserListActivity extends BaseActivity {
             } else {
                 getTrailActivity("" + SPUtils.getInstance().getInt(Constant.USER_ID));
             }
-
         }
     }
 
