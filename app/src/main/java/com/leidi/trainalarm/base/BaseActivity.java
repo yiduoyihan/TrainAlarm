@@ -180,7 +180,6 @@ public abstract class BaseActivity extends FragmentActivity implements TextToSpe
                             list.remove(list.size() - 1);
                             dialog.dismiss();
                             mTitle.setEnabled(true);
-
                         });
 
             }
