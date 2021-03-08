@@ -1,8 +1,13 @@
 package com.leidi.trainalarm.ui.fm.n;
 
 
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -13,17 +18,20 @@ import com.leidi.trainalarm.adapter.NotificationListAdapter;
 import com.leidi.trainalarm.base.BaseActivity;
 import com.leidi.trainalarm.base.BaseBean;
 import com.leidi.trainalarm.bean.NotificationBean;
+import com.leidi.trainalarm.ui.fm.HomeFragment;
 import com.leidi.trainalarm.util.AppUtil;
 import com.leidi.trainalarm.util.CommonDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 
 /**
  * @author yan
- * @description 消息详情
+ * @description 历史告警
  */
 public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView.Result {
     @BindView(R.id.rv_list)
@@ -37,6 +45,7 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
     private int regId = 1;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+    String dateString;
 
     @Override
     protected int getLayoutId() {
@@ -49,6 +58,16 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
         presenter = new AlarmDetailPresenter(this);
         presenter.getListData(pageSize, pageNum, regId, this);
         initRecycleView();
+
+        tvTitleRightButton.setImageResource(R.mipmap.calendar);
+        tvTitleRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCalendarDialog();
+            }
+        });
+
+        dateString = formatter.format(new Date());
 
     }
 
@@ -65,6 +84,7 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             pageSize = 0;
+            dateString = formatter.format(new Date());
             presenter.getListData(pageSize, pageNum, regId, AlarmDetailActivity.this);
         });
 
@@ -90,6 +110,7 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
         if (pageSize == 0) {
             beanList.clear();
             adapter.setEnableLoadMore(true);
+            adapter.setEmptyView(R.layout.empty_view);
         } else if (bean.getData().size() == pageNum) {
             adapter.loadMoreComplete();
         } else if (bean.getData().size() < pageNum) {
@@ -103,9 +124,6 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
             adapter.notifyDataSetChanged();
         }
 
-        if (beanList.size() == 0) {
-            adapter.setEmptyView(R.layout.empty_view);
-        }
     }
 
     /**
@@ -161,8 +179,48 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
                     public void onNegativeClick() {
                         dialog.dismiss();
                     }
-                })
-                .show();
+                }).show();
         dialog.setCanceledOnTouchOutside(true);
+    }
+
+
+    /**
+     * 展示选择日期的dialog
+     */
+    private void showCalendarDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(HomeFragment.this.getActivity());
+        View view = getLayoutInflater().inflate(R.layout.data_pick_layout, null);//这个布局在下边,可参考
+        final DatePicker datePicker = (DatePicker) view.findViewById(R.id.date_picker);
+        //设置日期简略显示 否则详细显示 包括:星期周
+        datePicker.setCalendarViewShown(false);
+        Calendar calendar = Calendar.getInstance();
+        //初始化当前日期
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        //初始化当前日期
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH), null);
+        /**
+         * 下面这行代吗 设置的是只显示年月
+         */
+        ((ViewGroup) ((ViewGroup) datePicker.getChildAt(0)).getChildAt(0)).getChildAt(2);
+
+        //设置date布局
+        builder.setView(view);
+        builder.setTitle("设置日期信息");
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth() + 1;//我勒个去,系统获取的日期居然不准
+                int day = datePicker.getDayOfMonth();
+                dateString = year + "-" + month + "-" + day;
+                pageSize = 0;
+                //TODO
+//                presenter.getListData(pageSize, pageNum, dateString, HomeFragment.this);
+            }
+        });
+        builder.create().show();
     }
 }
