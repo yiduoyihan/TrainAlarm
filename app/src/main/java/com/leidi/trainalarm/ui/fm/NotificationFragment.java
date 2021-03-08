@@ -111,7 +111,6 @@ public class NotificationFragment extends BaseFragment implements MKOfflineMapLi
     AlarmSetBean.DataBean alarmDataBean;
     private float maxWeight = 4.7f;
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.fm_notification;
