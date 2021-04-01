@@ -563,7 +563,6 @@ public class NotificationFragment extends BaseFragment implements MKOfflineMapLi
                 if (null != alarmDataBean.getFirstAlarm() && null != alarmDataBean.getSecondAlarm() && null != alarmDataBean.getThirdAlarm()) {
                     cardMsgBeanList.get(i).setAlarmLv(3);
                     threeAlarmMethod(cardMsgBeanList, i);
-
                 }
 
             }

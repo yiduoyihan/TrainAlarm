@@ -89,6 +89,16 @@ public class MyReceiver extends BroadcastReceiver {
                     CardMsgBean cardMsgBean = new Gson().fromJson(bean.getMsg(), CardMsgBean.class);
                     EventBus.getDefault().post(cardMsgBean);
                     break;
+                case Constant.MSG_FENCE:
+                    //发送到消息页刷新列表
+//                    EventBus.getDefault().post(new HomeEvent());
+                    //发送到BaseActivity页面弹出提醒框
+                    //并且弹框
+//                    bean.setMsg("收到一条测试");
+//                    bean.setType("fence");
+                    EventBus.getDefault().post(bean);
+                    AppUtil.print("收到一条测试：" + bean.getMsg() + "=====" + messageId);
+                    break;
                 default:
                     break;
             }

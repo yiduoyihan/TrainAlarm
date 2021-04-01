@@ -6,14 +6,10 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.google.gson.Gson;
 import com.leidi.trainalarm.base.BaseBean;
-import com.leidi.trainalarm.bean.LocationBean;
 import com.leidi.trainalarm.bean.NotificationBean;
 import com.leidi.trainalarm.ui.fm.NotificationFragment;
-import com.leidi.trainalarm.util.AppUtil;
 import com.leidi.trainalarm.util.Constant;
-import com.leidi.trainalarm.util.FileUtils;
 import com.leidi.trainalarm.util.Url;
 import com.rxjava.rxlife.RxLife;
 
@@ -32,13 +28,15 @@ public class AlarmDetailPresenter implements AlarmDetailView.Presenter {
     }
 
     @Override
-    public void getListData(int pageSize, int pageNum, int regId, Activity activity) {
+    public void getListData(int pageSize, int pageNum, int regId,String date, Activity activity) {
         RxHttp.get(Url.notification_list)
                 .add("pageSize", pageSize)
                 .add("pageNum", pageNum)
                 .add("alarmInfoIds", regId)
                 .add("token", SPUtils.getInstance().getString(Constant.TOKEN))
                 .add("deviceNo", DeviceUtils.getAndroidID())
+                .add("startTime", date + " 00:00:00")
+                .add("endTime", date + " 23:59:59")
                 .asClass(NotificationBean.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .to(RxLife.to((LifecycleOwner) activity))
@@ -55,7 +53,6 @@ public class AlarmDetailPresenter implements AlarmDetailView.Presenter {
     }
 
     @Override
-
     public void deleteItem(int alarmInfoId, int position, Activity fragment) {
         RxHttp.postForm(Url.DELETE_NOTIFICATION_ITEM)
                 .add("alarmInfoIds", alarmInfoId)

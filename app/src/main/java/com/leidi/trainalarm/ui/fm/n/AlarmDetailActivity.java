@@ -1,6 +1,7 @@
 package com.leidi.trainalarm.ui.fm.n;
 
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.leidi.trainalarm.ui.fm.HomeFragment;
 import com.leidi.trainalarm.util.AppUtil;
 import com.leidi.trainalarm.util.CommonDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,7 +47,10 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
     private int regId = 1;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+
     String dateString;
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected int getLayoutId() {
@@ -55,8 +60,9 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
     @Override
     protected void initView() {
         setToolbar("历史告警");
+        dateString = formatter.format(new Date());
         presenter = new AlarmDetailPresenter(this);
-        presenter.getListData(pageSize, pageNum, regId, this);
+        presenter.getListData(pageSize, pageNum, regId,dateString, this);
         initRecycleView();
 
         tvTitleRightButton.setImageResource(R.mipmap.calendar);
@@ -66,8 +72,6 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
                 showCalendarDialog();
             }
         });
-
-        dateString = formatter.format(new Date());
 
     }
 
@@ -85,12 +89,12 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
         swipeRefreshLayout.setOnRefreshListener(() -> {
             pageSize = 0;
             dateString = formatter.format(new Date());
-            presenter.getListData(pageSize, pageNum, regId, AlarmDetailActivity.this);
+            presenter.getListData(pageSize, pageNum, regId,dateString, AlarmDetailActivity.this);
         });
 
         adapter.setOnLoadMoreListener(() -> {
             pageSize++;
-            presenter.getListData(pageSize * pageNum, pageNum, regId, AlarmDetailActivity.this);
+            presenter.getListData(pageSize * pageNum, pageNum, regId, dateString,AlarmDetailActivity.this);
         }, recyclerView);
 
         adapter.disableLoadMoreIfNotFullPage();
@@ -99,7 +103,6 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
         adapter.setOnItemClickListener((adapter, view, position) ->
                 AppUtil.print("点击了第" + position + "条")
         );
-
         adapter.setOnItemChildClickListener((adapter, view, position) -> showDeleteDialog(position));
 
     }
@@ -158,7 +161,6 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
         AppUtil.print(string);
     }
 
-
     /**
      * 删除某一条item的对话框
      */
@@ -188,7 +190,7 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
      * 展示选择日期的dialog
      */
     private void showCalendarDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(HomeFragment.this.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.data_pick_layout, null);//这个布局在下边,可参考
         final DatePicker datePicker = (DatePicker) view.findViewById(R.id.date_picker);
         //设置日期简略显示 否则详细显示 包括:星期周
@@ -218,7 +220,7 @@ public class AlarmDetailActivity extends BaseActivity implements AlarmDetailView
                 dateString = year + "-" + month + "-" + day;
                 pageSize = 0;
                 //TODO
-//                presenter.getListData(pageSize, pageNum, dateString, HomeFragment.this);
+                presenter.getListData(pageSize, pageNum, regId,dateString,AlarmDetailActivity.this);
             }
         });
         builder.create().show();

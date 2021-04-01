@@ -44,7 +44,7 @@ public interface AlarmDetailView {
 
     interface Presenter {
         //获取列表的数据
-        void getListData(int pageSize, int pageNum, int regId, Activity fragment);
+        void getListData(int pageSize, int pageNum, int regId, String dateString, Activity fragment);
 
         void deleteItem(int alarmInfoId, int position, Activity fragment);
         /**

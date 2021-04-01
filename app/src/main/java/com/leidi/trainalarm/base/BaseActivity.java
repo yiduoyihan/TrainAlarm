@@ -54,9 +54,9 @@ import rxhttp.wrapper.param.RxHttp;
  */
 public abstract class BaseActivity extends FragmentActivity implements TextToSpeech.OnInitListener, NetStateChangeObserver {
     @BindView(R.id.tv_title_left)
-    ImageView tvTitleLeftButton;
+    public ImageView tvTitleLeftButton;
     @BindView(R.id.tv_title_right)
-    ImageView tvTitleRightButton;
+    public ImageView tvTitleRightButton;
     @BindView(R.id.tv_title_center)
     TextView tvTitleCenter;
     Bundle savedInstanceState;
@@ -153,48 +153,63 @@ public abstract class BaseActivity extends FragmentActivity implements TextToSpe
         ImageView mImage = (ImageView) dialogView.findViewById(R.id.dialog_title_image);
         TextView mTitle = (TextView) dialogView.findViewById(R.id.dialog_title_content);
         TextView mMessage = (TextView) dialogView.findViewById(R.id.dialog_message_text);
-        MsgBean bean1 = new Gson().fromJson(bean.getMsg(), MsgBean.class);
-        list.add(bean1);
-        mMessage.setText(bean1.getAlarmMsg());
-//        mTitle.setOnClickListener(v -> dialog.dismiss());
-        mTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTitle.setEnabled(false);
-                RxHttp.postForm(Url.callbackAlarm)
-                        .add("trainMileage", list.get(list.size() - 1).getTrainMileage())
-                        .add("direction", list.get(list.size() - 1).getAlarmMsg())
-                        .add("lineNo", list.get(list.size() - 1).getLineNo())
-                        .add("trainNo", list.get(list.size() - 1).getTrainNo())
-                        .add("alarmLevel", list.get(list.size() - 1).getAlarmLevel())
-                        .add("alarmDistance", list.get(list.size() - 1).getDistance())
-                        .add("token", SPUtils.getInstance().getString(Constant.TOKEN))
-                        .add("deviceNo", DeviceUtils.getAndroidID())
-                        .asClass(BaseBean.class)
-                        .subscribe(s -> {
-                            if (s.getCode() == 200) {
-                                print("关闭成功");
-                            } else {
-                                print("关闭失败");
-                            }
-                            list.remove(list.size() - 1);
-                            dialog.dismiss();
-                            mTitle.setEnabled(true);
-                        });
+        //2021年3月22日13:46:50新增一个围栏的功能导致添加了一个判断，else里面为原因的逻辑内容
+        if(bean.getType().equals("fence")){
+            mMessage.setText(bean.getMsg());
+            mTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.setCanceledOnTouchOutside(false);
+            Bundle bundle = new Bundle();
+            bundle.putString(TextToSpeech.Engine.KEY_PARAM_VOLUME, "1");
+            tts.speak(AppUtil.numberToChinese(bean.getMsg()), TextToSpeech.QUEUE_ADD, bundle, "只读");
+        }else {
+            MsgBean bean1 = new Gson().fromJson(bean.getMsg(), MsgBean.class);
+            list.add(bean1);
+            mMessage.setText(bean1.getAlarmMsg());
+            mTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mTitle.setEnabled(false);
+                    RxHttp.postForm(Url.callbackAlarm)
+                            .add("trainMileage", list.get(list.size() - 1).getTrainMileage())
+                            .add("direction", list.get(list.size() - 1).getAlarmMsg())
+                            .add("lineNo", list.get(list.size() - 1).getLineNo())
+                            .add("trainNo", list.get(list.size() - 1).getTrainNo())
+                            .add("alarmLevel", list.get(list.size() - 1).getAlarmLevel())
+                            .add("alarmDistance", list.get(list.size() - 1).getDistance())
+                            .add("token", SPUtils.getInstance().getString(Constant.TOKEN))
+                            .add("deviceNo", DeviceUtils.getAndroidID())
+                            .asClass(BaseBean.class)
+                            .subscribe(s -> {
+                                if (s.getCode() == 200) {
+                                    print("关闭成功");
+                                } else {
+                                    print("关闭失败");
+                                }
+                                list.remove(list.size() - 1);
+                                dialog.dismiss();
+                                mTitle.setEnabled(true);
+                            });
 
+                }
+            });
+            dialog.setCanceledOnTouchOutside(false);
+            if (bean.getType().equals(Constant.MSG_NOTIFICATION)) {
+                //如果是公告的话，不执行下面文字转语音的过程
+                Notificaitons.getInstance().sendMessagingStyleNotification(
+                        bean1, this, (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
+                return;
             }
-        });
-        dialog.setCanceledOnTouchOutside(false);
-        if (bean.getType().equals(Constant.MSG_NOTIFICATION)) {
-            //如果是公告的话，不执行下面文字转语音的过程
-            Notificaitons.getInstance().sendMessagingStyleNotification(
-                    bean1, this, (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
-            return;
+            Bundle bundle = new Bundle();
+            bundle.putString(TextToSpeech.Engine.KEY_PARAM_VOLUME, "1");
+            tts.speak(AppUtil.numberToChinese(bean1.getAlarmMsg()), TextToSpeech.QUEUE_ADD, bundle, "只读");
+            AppUtil.print("tts度过了");
         }
-        Bundle bundle = new Bundle();
-        bundle.putString(TextToSpeech.Engine.KEY_PARAM_VOLUME, "1");
-        tts.speak(AppUtil.numberToChinese(bean1.getAlarmMsg()), TextToSpeech.QUEUE_ADD, bundle, "只读");
-        AppUtil.print("tts度过了");
+
     }
 
     @Override

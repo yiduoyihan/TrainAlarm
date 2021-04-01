@@ -50,5 +50,6 @@ public class Constant {
     public static final String MSG_NOTIFICATION = "notice";
     public static final String MSG_HOME_REFUSH = "alarm";
     public static final String MSG_TRAIN_LOCATION = "train";
+    public static final String MSG_FENCE = "fence";
     public static final String MSG_CARD = "tab";
 }
