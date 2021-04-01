@@ -76,6 +76,7 @@ public class HomeFragment extends BaseFragment implements HomeView.Result {
         setToolbar(View.INVISIBLE, "列车接近告警系统", View.VISIBLE);
         EventBus.getDefault().register(this);
 
+
         tvTitleRightButton.setImageResource(R.mipmap.calendar);
         tvTitleRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
